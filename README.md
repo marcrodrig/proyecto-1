@@ -67,3 +67,8 @@ La corrección del mismo será a través de los comentarios que permite realizar
 
 *   Approved: Aprobado :D
 *   Request Changes: Re-entrega, se explicará en el mensaje, qué es lo que hay que corregir.
+
+## Tema elegido
+Tema 3 - COVID-19
+Se tendrá en cuenta la cantidad de casos confirmados en las provincias Argentinas en una determinada cantidad de días. Dicha información se podrá filtrar por día, reflejándose en un mapa, a su vez se podrá seleccionar un rango de días para visualizar la evolución en un gráfico.
+Los datos serán extraídos de los reportes diarios publicados por el Ministerio de Salud de la Nación Argentina.
