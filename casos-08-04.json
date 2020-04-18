@@ -1,0 +1,122 @@
+[
+    {
+        "provincia": "Buenos Aires",
+        "confirmados": 17,
+        "acumulados": 460
+    },
+    {
+        "provincia": "Ciudad de Buenos Aires",
+        "confirmados": 18,
+        "acumulados": 498
+    },
+    {
+        "provincia": "Catamarca",
+        "confirmados": 0,
+        "acumulados": 0
+    },
+    {
+        "provincia": "Chaco",
+        "confirmados": 15,
+        "acumulados": 138
+    },
+    {
+        "provincia": "Chubut",
+        "confirmados": 0,
+        "acumulados": 0
+    },
+    {
+        "provincia": "Córdoba",
+        "confirmados": 1,
+        "acumulados": 151
+    },
+    {
+        "provincia": "Corrientes",
+        "confirmados": 0,
+        "acumulados": 24
+    },
+    {
+        "provincia": "Entre Ríos",
+        "confirmados": 0,
+        "acumulados": 20
+    },
+    {
+        "provincia": "Formosa",
+        "confirmados": 0,
+        "acumulados": 0
+    },
+    {
+        "provincia": "Jujuy",
+        "confirmados": 0,
+        "acumulados": 5
+    },
+    {
+        "provincia": "La Pampa",
+        "confirmados": 1,
+        "acumulados": 4
+    },
+    {
+        "provincia": "La Rioja",
+        "confirmados": 0,
+        "acumulados": 9
+    },
+    {
+        "provincia": "Mendoza",
+        "confirmados": 6,
+        "acumulados": 38
+    },
+    {
+        "provincia": "Misiones",
+        "confirmados": 0,
+        "acumulados": 3
+    },
+    {
+        "provincia": "Neuquén",
+        "confirmados": 17,
+        "acumulados": 70
+    },
+    {
+        "provincia": "Río Negro",
+        "confirmados": 1,
+        "acumulados": 22
+    },
+    {
+        "provincia": "Salta",
+        "confirmados": 0,
+        "acumulados": 3
+    },
+    {
+        "provincia": "San Juan",
+        "confirmados": 0,
+        "acumulados": 1
+    },
+    {
+        "provincia": "San Luis",
+        "confirmados": 0,
+        "acumulados": 11
+    },
+    {
+        "provincia": "Santa Cruz",
+        "confirmados": 0,
+        "acumulados": 31
+    },
+    {
+        "provincia": "Santa Fe",
+        "confirmados": 2,
+        "acumulados": 189
+    },
+    {
+        "provincia": "Santiago del Estero",
+        "confirmados": 0,
+        "acumulados": 9
+    },
+    {
+        "provincia": "Tierra del Fuego",
+        "confirmados": 2,
+        "acumulados": 81
+    },
+    {
+        "provincia": "Tucumán",
+        "confirmados": 0,
+        "acumulados": 28
+    }
+]
