@@ -1,10 +1,14 @@
 let datos;
 
 function mostrar() {
-    var e = document.getElementById("botonMostrar");
-    var dia = e.options[e.selectedIndex].value;
-    //console.log(dia);
-    let json = "casos-" + dia + ".json";
+    console.log("bien");
+    var e = document.getElementById("date");
+    console.log(e.value);
+    var dia = $('#date').datepicker('getDate').getDate();
+    console.log(dia);
+    var mes = $('#date').datepicker('getDate').getMonth() + 1;
+    console.log(mes);
+    let json = "casos-" + dia + "-" + mes + ".json";
     //console.log(json);
     $.getJSON(json, function (dato) {
         console.log(dato);
@@ -60,7 +64,19 @@ function mostrar() {
     xhttp.open('GET', url, true);
     xhttp.send();*/
     document.getElementById("tablaYmapa").style.visibility = "visible";
-}  
+}
+
+function calendario() {
+    $(document).ready(function() {           
+        $('#date').datepicker({
+            startDate: '05/04/2020',
+            endDate: '15/04/2020',
+            language: 'es-ES',
+            autoHide: true
+        });
+        $('#date').datepicker('show');
+      })
+}
 
 function getColor(nombreProvincia) {
     let d = getAcumuladosByProvincia(nombreProvincia);
@@ -104,7 +120,7 @@ function getConfirmadosByProvincia(nombreProvincia) {
 }
 
 function getAcumuladosByProvincia(nombreProvincia) {
-    console.log(datos);
+    //console.log(datos);
     switch(nombreProvincia) {
         case "Buenos Aires" : return datos[0].acumulados;
         case "Ciudad Autónoma de Buenos Aires": return datos[1].acumulados;
@@ -132,3 +148,9 @@ function getAcumuladosByProvincia(nombreProvincia) {
         case "Tucumán" : return datos[23].acumulados;
     }
 }
+
+  $('#provincia-list a').on('click', function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+    map.invalidateSize();
+  })

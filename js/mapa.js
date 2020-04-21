@@ -1,10 +1,21 @@
-let map = L.map("map").setView([-39, -59], 4);
-L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-}).addTo(map);
+var map;
+var geojson;
 
-var geojson = L.geoJson(provincias, { onEachFeature: onEachFeature }).addTo(map);
+function initmap() {
+    map = L.map("map").setView([-39, -59], 4);
+    map.on('resize', function () {
+        map.invalidateSize();
+    });
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+        maxZoom: 20,        
+        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    geojson = L.geoJson(provincias, { onEachFeature: onEachFeature }).addTo(map);
+}
+
+initmap();
+
+
 
 function getColorByGrade(d) {
     return  d > 1000 ? '#800026' :
