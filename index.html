@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Datepicker CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.css" integrity="sha256-n3ci71vDbbK59GUg1tuo+c3KO7+pnBOzt7BDmOe87s4=" crossorigin="anonymous" />
     <!-- CSS -->
@@ -20,72 +20,67 @@
   </head>
   <body>
     <div class="container">
-        <h1>Casos confirmados de COVID-19 en Argentina</h1>
-        <h2>Detalle por provincias/día</h2>
-        <div class="card">
-          <h5 class="card-header">Día</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <div class="input-group">
-                  <input type="text" class="form-control " id="date" placeholder="Seleccione un día" autocomplete="off" disabled onchange="mostrar()">
-                  <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary" onclick="calendario()">
-                      <i class="fa fa-calendar" aria-hidden="true"></i>
-                    </button>
-                  </div>
+      <h1>Casos confirmados de COVID-19 en Argentina</h1>
+      <h2>Detalle por provincias/día</h2>
+      <div class="card">
+        <h5 class="card-header">Día</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="input-group">
+                <input type="text" class="form-control" id="date" placeholder="Seleccione un día" autocomplete="off" disabled>
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-secondary" id="btnCalendario">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>      
+      <div class="collapse" id="collapseMapaTabla">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="#mapa" role="tab" aria-controls="mapa" aria-selected="true">Mapa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  href="#tabla" role="tab" aria-controls="tabla" aria-selected="false">Tabla</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Detalle por provincias</h4>          
+            <div class="tab-content mt-3">
+              <div class="tab-pane active" id="mapa" role="tabpanel">
+                <div id="map">
 
-    <div class="container" id="tablaYmapa">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="provincia-list" role="provlist">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#mapa" role="tab" aria-controls="mapa" aria-selected="true">Mapa</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link"  href="#tabla" role="tab" aria-controls="tabla" aria-selected="false">Tabla</a>
-                </li>
-              </ul>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Detalle por provincias</h4>          
-              <div class="tab-content mt-3">
-                <div class="tab-pane active" id="mapa" role="tabpanel">
-                  <div id="map">
-
-                  </div>
                 </div>
-                <div class="tab-pane" id="tabla" role="tabpanel" aria-labelledby="tabla-tab">  
-                  <div class="table-responsive">
-                    <table class="table table-striped table-dark" style="text-align:center;">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th class="th">Provincia</th>
-                          <th class="th">Confirmados</th>
-                          <th class="th">Acumulados</th>
-                        </tr>
-                      </thead>
-                      <tbody id="res">
-
-                      </tbody>
-                    </table>              
-                  </div>          
-                </div>                
               </div>
+              <div class="tab-pane" id="tabla" role="tabpanel" aria-labelledby="tabla-tab">  
+                <div class="table-responsive">
+                  <table class="table table-striped table-dark">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th class="th">Provincia</th>
+                        <th class="th">Confirmados</th>
+                        <th class="th">Acumulados</th>
+                      </tr>
+                    </thead>
+                    <tbody id="resultadoTabla">
+
+                    </tbody>
+                  </table>              
+                </div>          
+              </div>                
             </div>
           </div>
         </div>
       </div>
-    </div>
         <!-- jQuery JavaScript -->
-        <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <!-- Popper JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <!-- Bootstrap JavaScript -->

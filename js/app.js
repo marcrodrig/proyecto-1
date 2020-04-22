@@ -1,19 +1,30 @@
 let datos;
 
-function mostrar() {
-    console.log("bien");
-    var e = document.getElementById("date");
-    console.log(e.value);
+function setUpEvents() {
+    var diaSeleccionado = document.getElementById("date");
+    diaSeleccionado.onchange = mostrarMapaTabla;
+    var btnCalendario = document.getElementById("btnCalendario");
+    btnCalendario.onclick = calendario;
+    // Con jQuery:
+    $('#tabs a').on('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        map.invalidateSize();
+    });
+}
+
+window.onload = function() {
+    setUpEvents();
+}
+
+function mostrarMapaTabla() {
     var dia = $('#date').datepicker('getDate').getDate();
-    console.log(dia);
     var mes = $('#date').datepicker('getDate').getMonth() + 1;
-    console.log(mes);
     let json = "casos-" + dia + "-" + mes + ".json";
-    //console.log(json);
     $.getJSON(json, function (dato) {
         console.log(dato);
         datos = dato;
-        let res = document.querySelector("#res");
+        let res = document.getElementById("resultadoTabla");
         res.innerHTML = '';
         for(let item of datos) {
             res.innerHTML += `
@@ -25,45 +36,17 @@ function mostrar() {
             `
         }
         geojson.eachLayer(function (layer) {  
-              layer.setStyle({fillColor: getColor(layer.feature.properties.nam),
+            layer.setStyle({
+                fillColor: getColor(layer.feature.properties.nam),
                 weight: 2,
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
                 fillOpacity: 0.7});
-          });
-    
-      });
-    /* Otra forma de obtener el json:
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-            datos = JSON.parse(this.responseText);
-            console.log(datos);
-            let res = document.querySelector("#res");
-            res.innerHTML = '';
-            for(let item of datos) {
-                res.innerHTML += `
-                    <tr>
-                        <td>${item.provincia}</td>
-                        <td>${item.confirmados}</td>
-                        <td>${item.acumulados}</td>
-                    </tr>
-                `
-            }
-            geojson.eachLayer(function (layer) {  
-                  layer.setStyle({fillColor: getColor(layer.feature.properties.nam),
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.7});
-              });
-        }
-    };   
-    xhttp.open('GET', url, true);
-    xhttp.send();*/
-    document.getElementById("tablaYmapa").style.visibility = "visible";
+        });
+    });
+    $('#collapseMapaTabla').collapse();
+    map.invalidateSize();
 }
 
 function calendario() {
@@ -75,7 +58,7 @@ function calendario() {
             autoHide: true
         });
         $('#date').datepicker('show');
-      })
+    });
 }
 
 function getColor(nombreProvincia) {
@@ -120,7 +103,6 @@ function getConfirmadosByProvincia(nombreProvincia) {
 }
 
 function getAcumuladosByProvincia(nombreProvincia) {
-    //console.log(datos);
     switch(nombreProvincia) {
         case "Buenos Aires" : return datos[0].acumulados;
         case "Ciudad Autónoma de Buenos Aires": return datos[1].acumulados;
@@ -148,9 +130,3 @@ function getAcumuladosByProvincia(nombreProvincia) {
         case "Tucumán" : return datos[23].acumulados;
     }
 }
-
-  $('#provincia-list a').on('click', function (e) {
-    e.preventDefault()
-    $(this).tab('show')
-    map.invalidateSize();
-  })
