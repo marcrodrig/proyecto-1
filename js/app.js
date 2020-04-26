@@ -1,3 +1,30 @@
+const btnSwitch = document.querySelector('#switch');
+
+btnSwitch.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    btnSwitch.classList.toggle('active');
+
+    if(document.body.classList.contains('dark')) {
+        map.eachLayer(function(layer) {
+            if( layer instanceof L.TileLayer )
+                layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', false);
+        });
+        localStorage.setItem('dark-mode','true');
+    }
+    else {
+        map.eachLayer(function(layer) {
+            if( layer instanceof L.TileLayer )
+                layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', false);
+        });
+        localStorage.setItem('dark-mode','false');
+    }
+});
+
+if (localStorage.getItem('dark-mode') === 'true')
+    document.body.classList.add('dark');
+    else
+    document.body.classList.remove('dark');
+
 let datos;
 
 function setUpEvents() {
@@ -17,6 +44,21 @@ window.onload = function() {
     setUpEvents();
 }
 
+$(document).ready(function() {           
+    if(document.body.classList.contains('dark')) {
+        map.eachLayer(function(layer) {
+            if( layer instanceof L.TileLayer )
+                layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', false);
+        });
+    }
+    else {
+    map.eachLayer(function(layer) {
+        if( layer instanceof L.TileLayer )
+            layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', false);
+    });
+    }
+});
+
 function mostrarMapaTabla() {
     var dia = $('#date').datepicker('getDate').getDate();
     var mes = $('#date').datepicker('getDate').getMonth() + 1;
@@ -24,6 +66,17 @@ function mostrarMapaTabla() {
     $.getJSON(json, function (dato) {
         console.log(dato);
         datos = dato;
+        // Mapa
+        geojson.eachLayer(function (layer) {  
+            layer.setStyle({
+                fillColor: getColor(layer.feature.properties.nam),
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.7});
+        });
+        // Tabla
         let res = document.getElementById("resultadoTabla");
         res.innerHTML = '';
         for(let item of datos) {
@@ -35,18 +88,16 @@ function mostrarMapaTabla() {
                 </tr>
             `
         }
-        geojson.eachLayer(function (layer) {  
-            layer.setStyle({
-                fillColor: getColor(layer.feature.properties.nam),
-                weight: 2,
-                opacity: 1,
-                color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.7});
-        });
-    });
+        // Gráfico de barras
+        datos.forEach(actualizarBarChart);
+    });    
     $('#collapseMapaTabla').collapse();
     map.invalidateSize();
+}
+
+function actualizarBarChart(item, index) {
+    barChart.data.datasets[0].data[index] = item.acumulados;
+    barChart.update();
 }
 
 function calendario() {
@@ -55,7 +106,7 @@ function calendario() {
             startDate: '05/04/2020',
             endDate: '15/04/2020',
             language: 'es-ES',
-            autoHide: true
+            autoHide: true,            
         });
         $('#date').datepicker('show');
     });
