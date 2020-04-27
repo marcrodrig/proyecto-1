@@ -5,17 +5,17 @@ btnSwitch.addEventListener('click', () => {
     btnSwitch.classList.toggle('active');
 
     if(document.body.classList.contains('dark')) {
-        map.eachLayer(function(layer) {
+       /* map.eachLayer(function(layer) {
             if( layer instanceof L.TileLayer )
                 layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', false);
-        });
+        });*/
         localStorage.setItem('dark-mode','true');
     }
     else {
-        map.eachLayer(function(layer) {
+       /* map.eachLayer(function(layer) {
             if( layer instanceof L.TileLayer )
                 layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', false);
-        });
+        });*/
         localStorage.setItem('dark-mode','false');
     }
 });
@@ -44,7 +44,7 @@ window.onload = function() {
     setUpEvents();
 }
 
-$(document).ready(function() {           
+/*$(document).ready(function() {           
     if(document.body.classList.contains('dark')) {
         map.eachLayer(function(layer) {
             if( layer instanceof L.TileLayer )
@@ -57,7 +57,7 @@ $(document).ready(function() {
             layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', false);
     });
     }
-});
+});*/
 
 function mostrarMapaTabla() {
     var dia = $('#date').datepicker('getDate').getDate();
