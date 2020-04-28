@@ -1,67 +1,60 @@
-const btnSwitch = document.querySelector('#switch');
-
-btnSwitch.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    btnSwitch.classList.toggle('active');
-
-    if(document.body.classList.contains('dark')) {
-       /* map.eachLayer(function(layer) {
-            if( layer instanceof L.TileLayer )
-                layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', false);
-        });*/
-        localStorage.setItem('dark-mode','true');
-    }
-    else {
-       /* map.eachLayer(function(layer) {
-            if( layer instanceof L.TileLayer )
-                layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', false);
-        });*/
-        localStorage.setItem('dark-mode','false');
-    }
-});
-
 if (localStorage.getItem('dark-mode') === 'true')
     document.body.classList.add('dark');
-    else
+else
     document.body.classList.remove('dark');
-
-let datos;
-
-function setUpEvents() {
-    var diaSeleccionado = document.getElementById("date");
-    diaSeleccionado.onchange = mostrarMapaTabla;
-    var btnCalendario = document.getElementById("btnCalendario");
-    btnCalendario.onclick = calendario;
-    // Con jQuery:
-    $('#tabs a').on('click', function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-        map.invalidateSize();
-    });
-}
 
 window.onload = function() {
     setUpEvents();
 }
 
-/*$(document).ready(function() {           
-    if(document.body.classList.contains('dark')) {
-        map.eachLayer(function(layer) {
-            if( layer instanceof L.TileLayer )
-                layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', false);
-        });
-    }
-    else {
-    map.eachLayer(function(layer) {
-        if( layer instanceof L.TileLayer )
-            layer.setUrl('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', false);
-    });
-    }
-});*/
+let datos;
+var dia1, dia2, mes1, mes2;
 
-function mostrarMapaTabla() {
-    var dia = $('#date').datepicker('getDate').getDate();
-    var mes = $('#date').datepicker('getDate').getMonth() + 1;
+function setUpEvents() {
+    // Switch
+    const btnSwitch = document.querySelector('#switch');
+    btnSwitch.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        btnSwitch.classList.toggle('active');
+    
+        if(document.body.classList.contains('dark'))
+            localStorage.setItem('dark-mode','true');
+        else
+            localStorage.setItem('dark-mode','false');
+    });
+    // Selección de día
+    dateRangePickerDia.on('datepicker-change', function(evt, obj) {
+        console.log('change',obj);
+        var diaSeleccionado = document.getElementById("dia");
+        diaSeleccionado.value = obj.value;
+        mostrarMapaTablaBarras(diaSeleccionado.value);
+    });
+    // Cambio de tabs para visualización de las acciones por día, con jQuery:
+    $('#tabs a').on('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        map.invalidateSize();
+    });
+    // Selección de rango
+    dateRangePickerRango.on('datepicker-change', function(evt, obj) {
+        console.log('change',obj);
+        var rangoSeleccionado = document.getElementById("rango");
+        rangoSeleccionado.value = obj.value;
+        chequearRango(rangoSeleccionado.value);
+        mostrarGraficoRango();
+    });
+    // Selección de provincia
+    const provinciaSeleccionada = document.getElementById("selectProvincia");
+    provinciaSeleccionada.onchange = mostrarGraficoRango;
+}
+
+function mostrarMapaTablaBarras(diaMesAño) {
+    console.log('mostrar');
+    var diaMes = diaMesAño.slice(0,5);
+    var diaMesArray = diaMes.split("/");
+    console.log('dm',diaMesArray);
+    var dia = parseInt(diaMesArray[0]);
+    var mes = parseInt(diaMesArray[1]);
     let json = "casos-" + dia + "-" + mes + ".json";
     $.getJSON(json, function (dato) {
         console.log(dato);
@@ -93,23 +86,6 @@ function mostrarMapaTabla() {
     });    
     $('#collapseMapaTabla').collapse();
     map.invalidateSize();
-}
-
-function actualizarBarChart(item, index) {
-    barChart.data.datasets[0].data[index] = item.acumulados;
-    barChart.update();
-}
-
-function calendario() {
-    $(document).ready(function() {           
-        $('#date').datepicker({
-            startDate: '05/04/2020',
-            endDate: '15/04/2020',
-            language: 'es-ES',
-            autoHide: true,            
-        });
-        $('#date').datepicker('show');
-    });
 }
 
 function getColor(nombreProvincia) {
@@ -180,4 +156,67 @@ function getAcumuladosByProvincia(nombreProvincia) {
         case "Tierra del Fuego, Antártida e Islas del Atlántico Sur" : return datos[22].acumulados;
         case "Tucumán" : return datos[23].acumulados;
     }
+}
+
+function actualizarBarChart(item, index) {
+    barChart.data.datasets[0].data[index] = item.acumulados;
+    barChart.update();
+}
+
+function chequearRango(rangoSeleccionado) {
+    console.log('rango');
+    var diaMes = rangoSeleccionado.slice(0,5);
+    var diaMesArray = diaMes.split("/");
+    console.log('dm1',diaMesArray);
+    dia1 = parseInt(diaMesArray[0]);
+    mes1 = parseInt(diaMesArray[1]);
+    diaMes = rangoSeleccionado.slice(14,19);
+    diaMesArray = diaMes.split("/");
+    console.log('dm2',diaMesArray);
+    dia2 = parseInt(diaMesArray[0]);
+    mes2 = parseInt(diaMesArray[1]);
+}
+
+function mostrarGraficoRango() {
+    if (dia1 !== undefined) {
+        var selectProv = document.getElementById("selectProvincia");
+        var provinciaSeleccionada = selectProv.value;
+        if (provinciaSeleccionada == "")
+            console.log("provincia",provinciaSeleccionada);
+        else {
+            actualizarLineChart(dia1, mes2, dia2, mes2, provinciaSeleccionada);
+            $('#collapseGraficos2').collapse();
+        }
+    }
+}
+
+function actualizarLineChart(dia1, mes1, dia2, mes2, provinciaSeleccionada) {
+    var newLabels = [];
+    var newData = [];
+    var index = 0;
+    if (mes1 == mes2) {
+        var inicio = dia1;
+        let json;
+        while (inicio <= dia2) {
+            json = "casos-" + inicio + "-" + mes1 + ".json";
+            $.ajax({
+                url: json,
+                dataType: 'json',  
+                async: false,
+                success: function(dato){ 
+                    console.log(json,dato);
+                    datos = dato;
+                } 
+            });
+            newLabels[index] = inicio + "/" + mes1;
+            newData[index] = getAcumuladosByProvincia(provinciaSeleccionada);
+            inicio++;
+            index++;
+        }
+    }
+    console.log('newLabels',newLabels);
+    console.log('newData',newData);
+    lineChart.data.labels = newLabels;
+    lineChart.data.datasets[0].data = newData;
+    lineChart.update();
 }

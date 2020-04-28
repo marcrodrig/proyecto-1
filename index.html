@@ -7,8 +7,6 @@
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     <!-- Graduate (font) -->
     <link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
-    <!-- Datepicker CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.css" integrity="sha256-n3ci71vDbbK59GUg1tuo+c3KO7+pnBOzt7BDmOe87s4=" crossorigin="anonymous" />
     <!-- ChartJS CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
     <!-- CSS -->
@@ -16,6 +14,8 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous" />
+    <!-- jQuery Date Range Picker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.20.0/daterangepicker.css" integrity="sha256-lu0YNUWGC84eeyEDQCLf4y/P7ID9yVTdU4D71MJnjjw=" crossorigin="anonymous" />
     <title>Proyecto 1</title>
   </head>
   <body>
@@ -60,18 +60,14 @@
       <div class="card" id="cardDia">
         <h5 class="card-header">Día</h5>
         <div class="card-body">
-          <div class="row">
-            <div class="col">
               <div class="input-group">
-                <input type="text" class="form-control" id="date" placeholder="Seleccione un día" autocomplete="off" disabled>
                 <div class="input-group-append">
                   <button type="button" class="btn btn-secondary" id="btnCalendario">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                   </button>
                 </div>
+                <input class="form-control" name="dia" id="dia" placeholder="Seleccione un día" readonly="true" value="">
               </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="collapse" id="collapseMapaTabla">
@@ -124,65 +120,98 @@
           </div>
         </div>
       </div>
-  <!--    <div class="card">
+      <!-- <i class="fas fa-chart-line"></i> -->
+      <div class="card">
         <h5 class="card-header">Rango de días</h5>
         <div class="card-body">
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text">Date range</span>
+              <button type="button" class="btn btn-secondary">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
             </div>
-            <input type="text" placeholder="Fecha de inicio" class="form-control start-date">
-          <input type="text" placeholder="Fecha de finalización" class="form-control end-date">
+            <input class="form-control" name="rango" id="rango" placeholder="Seleccione un rango de días" readonly="true" value="">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-secondary" id="btnProvincia">
+                <i class="fas fa-home" aria-hidden="true"></i>
+              </button>
+            </div>
+            <select id="selectProvincia" class="form-control" aria-placeholder="Seleccione una provincia">
+              <option disabled selected value="">Seleccione una provincia</option>
+              <option>Buenos Aires</option>
+              <option>Ciudad Autónoma de Buenos Aires</option>
+              <option>Catamarca</option>
+              <option>Chaco</option>
+              <option>Chubut</option>
+              <option>Córdoba</option>
+              <option>Corrientes</option>
+              <option>Entre Ríos</option>
+              <option>Formosa</option>
+              <option>Jujuy</option>
+              <option>La Pampa</option>
+              <option>La Rioja</option>
+              <option>Mendoza</option>
+              <option>Misiones</option>
+              <option>Neuquén</option>
+              <option>Río Negro</option>
+              <option>Salta</option>
+              <option>San Juan</option>
+              <option>San Luis</option>
+              <option>Santa Cruz</option>
+              <option>Santa Fe</option>
+              <option>Santiago del Estero</option>
+              <option>Tierra del Fuego, Antártida e Islas del Atlántico Sur</option>
+              <option>Tucumán</option>
+            </select>
           </div>
         </div>
-      </div>-->
-	
-        <!-- jQuery JavaScript -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <!-- Popper JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <!-- Bootstrap JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <!-- Datepicker JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.js" integrity="sha256-KgOC04qt96w+EFba7KuNt9sT+ahJua25I0I2rrkZHFo=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/i18n/datepicker.es-ES.min.js" integrity="sha256-b46Ei80gSqobQQdLu0dzusIZDr5GfP0QAFx9d6QZs4c=" crossorigin="anonymous"></script>
-        <!-- Leaflet JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js" integrity="sha256-fNoRrwkP2GuYPbNSJmMJOCyfRB2DhPQe0rGTgzRsyso=" crossorigin="anonymous"></script>
-        <!-- ChartJS JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
-        <!-- Leaflet Providers JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.9.1/leaflet-providers.js" integrity="sha256-rvLhwzAFnv7VYTR6DaKTU8FyC2bmnFIGp1/T8TTyLW4=" crossorigin="anonymous"></script>
-        <!-- JavaScript -->
-        <script src="js/provincia.js"></script>
-        <script src="js/mapa.js"></script>
-        <script src="js/barChart.js"></script>
-        <script src="js/app.js"></script>
-        
-        <!--
-        <script>
-          $(function() {
-            var $startDate = $('.start-date');
-            var $endDate = $('.end-date');
-      
-            $startDate.datepicker({
-              startDate: '05/04/2020',
-              endDate: '15/04/2020',
-              language: 'es-ES',
-              autoHide: true,
-            });
-            $endDate.datepicker({
-              startDate: '05/04/2020',
-              endDate: '15/04/2020',
-              language: 'es-ES',
-              autoHide: true,
-              startDate: $startDate.datepicker('getDate'),
-            });
-      
-            $startDate.on('change', function () {
-              $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
-            });
-          });
-        </script>-->
+      </div>
+      <div class="collapse" id="collapseGraficos2">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="tabs2" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="#grafico1" role="tab" aria-controls="grafico1" aria-selected="true">Gráfico 1</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Detalle por provincias</h4>          
+            <div class="tab-content mt-3">
+              <div class="tab-pane active" id="grafico" role="tabpanel">
+                <div class="chart-container2">
+                  <canvas id="chart2"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Moment JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+      <!-- jQuery JavaScript -->
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <!-- jQuery Date Range Picker JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.20.0/jquery.daterangepicker.min.js" integrity="sha256-qQx2CIbSRccEP6dedJGT0WHKhX0WhZi8crKw6TzfUeI=" crossorigin="anonymous"></script>
+      <!-- Popper JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <!-- Bootstrap JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <!-- Leaflet JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js" integrity="sha256-fNoRrwkP2GuYPbNSJmMJOCyfRB2DhPQe0rGTgzRsyso=" crossorigin="anonymous"></script>
+      <!-- ChartJS JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+      <!-- Leaflet Providers JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.9.1/leaflet-providers.js" integrity="sha256-rvLhwzAFnv7VYTR6DaKTU8FyC2bmnFIGp1/T8TTyLW4=" crossorigin="anonymous"></script>
+      <!-- JavaScript -->
+      <script src="js/datePickers.js"></script>
+      <script src="js/provincia.js"></script>
+      <script src="js/mapa.js"></script>
+      <script src="js/barChart.js"></script>
+      <script src="js/lineChart.js"></script>
+      <script src="js/app.js"></script>    
     </div>
   </body>
 </html>
