@@ -1,3 +1,5 @@
+/* IMPLEMENTAR: cambiar de GeoJSON a TopoJSON */
+
 var map;
 var geojson;
 
