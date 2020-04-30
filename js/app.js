@@ -13,7 +13,7 @@ var dia1, dia2, mes1, mes2;
 function setUpEvents() {
     // Switch
     const btnSwitch = document.querySelector('#switch');
-    btnSwitch.addEventListener('click', () => {
+    btnSwitch.addEventListener('click', function() {
         document.body.classList.toggle('dark');
         btnSwitch.classList.toggle('active');
     
@@ -23,6 +23,7 @@ function setUpEvents() {
             localStorage.setItem('dark-mode','false');
     });
     // Selección de día
+    dateRangePickerDia = $('input[name="dia"]');
     dateRangePickerDia.on('datepicker-change', function(evt, obj) {
         console.log('change',obj);
         var diaSeleccionado = document.getElementById("dia");
@@ -36,6 +37,7 @@ function setUpEvents() {
         map.invalidateSize();
     });
     // Selección de rango
+    dateRangePickerRango = $('input[name="rango"]');
     dateRangePickerRango.on('datepicker-change', function(evt, obj) {
         console.log('change',obj);
         var rangoSeleccionado = document.getElementById("rango");
@@ -60,33 +62,43 @@ function mostrarMapaTablaBarras(diaMesAño) {
         console.log(dato);
         datos = dato;
         // Mapa
-        geojson.eachLayer(function (layer) {  
-            layer.setStyle({
-                fillColor: getColor(layer.feature.properties.nam),
-                weight: 2,
-                opacity: 1,
-                color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.7});
-        });
+        topoLayer.eachLayer(handleLayer);
         // Tabla
         let res = document.getElementById("resultadoTabla");
         res.innerHTML = '';
-        for(let item of datos) {
-            res.innerHTML += `
-                <tr>
-                    <td>${item.provincia}</td>
-                    <td>${item.confirmados}</td>
-                    <td>${item.acumulados}</td>
-                </tr>
-            `
+        for(var i = 0; i < datos.length; i++){
+            var item = datos[i];
+            res.innerHTML +=
+                "<tr>"
+                +  "<td>" + item.provincia + "</td>"
+                +  "<td>" + item.confirmados + "</td>"
+                +  "<td>" + item.acumulados + "</td>"
+                "</tr>";
         }
         // Gráfico de barras
         datos.forEach(actualizarBarChart);
-    });    
-    $('#collapseMapaTabla').collapse();
-    map.invalidateSize();
+
+        $('#collapseMapaTabla').collapse();
+        map.invalidateSize();
+    });
 }
+
+function handleLayer(layer){
+    layer.setStyle({
+        fillColor: getColor(layer.feature.properties.NAME_1),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    });
+
+     layer.on({
+         mouseover: highlightFeature,
+         mouseout: resetHighlight,
+         click: zoomToFeature
+     });
+ }
 
 function getColor(nombreProvincia) {
     let d = getAcumuladosByProvincia(nombreProvincia);

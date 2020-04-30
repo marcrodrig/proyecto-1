@@ -1,7 +1,5 @@
-/* IMPLEMENTAR: cambiar de GeoJSON a TopoJSON */
-
 var map;
-var geojson;
+var topoLayer;
 
 function initmap() {
     map = L.map("map").setView([-39, -59], 4);
@@ -9,10 +7,33 @@ function initmap() {
         map.invalidateSize();
     });
     L.tileLayer.provider('Esri.WorldGrayCanvas').addTo(map);
-    geojson = L.geoJson(provincias, { onEachFeature: onEachFeature }).addTo(map);
+    
+    L.TopoJSON = L.GeoJSON.extend({
+        addData: function(jsonData) {
+          if (jsonData.type === 'Topology') {
+            for (key in jsonData.objects) {
+              geojson = topojson.feature(jsonData, jsonData.objects[key]);
+              L.GeoJSON.prototype.addData.call(this, geojson);
+            }
+          }
+          else {
+            L.GeoJSON.prototype.addData.call(this, jsonData);
+          }
+        }
+      });
+      // Copyright (c) 2013 Ryan Clark
+  
+    topoLayer = new L.TopoJSON();
+    $.getJSON('argentina-provinces.json')
+        .done(addTopoData);
 }
 
 initmap();
+
+function addTopoData(topoData) {  
+    topoLayer.addData(topoData);
+    topoLayer.addTo(map);
+  }
 
 function getColorByGrade(d) {
     return  d > 1000 ? '#800026' :
@@ -45,7 +66,7 @@ function resetHighlight(e) {
     var layer = e.target;
 
     layer.setStyle({
-        fillColor: getColor(layer.feature.properties.nam),
+        fillColor: getColor(layer.feature.properties.NAME_1),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -60,14 +81,6 @@ function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
 
-function onEachFeature(feature, layer) {
-    layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: zoomToFeature
-    });
-}
-
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -79,8 +92,8 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<center><h4>Casos confirmados</h4>' + (props ?
-        '<b>' + props.nam + '</b><br />' + getConfirmadosByProvincia(props.nam)
-        + ' casos<br /><i>Acumulados: </i>' + getAcumuladosByProvincia(props.nam) + ' casos<br />'
+        '<b>' + props.NAME_1 + '</b><br />' + getConfirmadosByProvincia(props.NAME_1)
+        + ' casos<br /><i>Acumulados: </i>' + getAcumuladosByProvincia(props.NAME_1) + ' casos<br />'
         + '</center>'
         : 'Deslícese sobre una provincia');
 };
