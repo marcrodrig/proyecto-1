@@ -1,6 +1,5 @@
 body {
 	width: 100%;
-	
 	padding-top: 70px;
 	transition: .3s ease all;  
 }
@@ -73,7 +72,7 @@ h1, h2, h4, h5, table, .card-title {
 	text-align: center;
 }
 
-.fa-globe-americas, .fa-table, .fa-chart-bar {
+.fa-globe-americas, .fa-table, .fa-chart-bar, .fa-chart-line {
 	  padding: 10px;
 	  text-align: center;
 }
@@ -83,18 +82,22 @@ h1, h2, h4, h5, table, .card-title {
 }
 
 #cardDia {
-	margin-block-end: 10px; 
+	margin-block-end: 3px; 
 	writing-mode: horizontal-tb;
 	width: 100%;
 }
 
-#collapseMapaTabla, .card-deck {
-	padding-bottom: 10px;
+#collapseMapaTabla {
+	margin-top: 10px;
 }
 
-.collapse .card .card-header {
-	height: 52px;
+#collapseGrafico {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-block-end: 10px; 
 }
+
+
 
 .card-header .nav-tabs {
 	overflow-x: auto;
@@ -108,7 +111,7 @@ h1, h2, h4, h5, table, .card-title {
 #map {
     height: 100%;
     width: 100%;
-    min-height: 550px;
+    min-height: 490px;
 }
 
 .info {
@@ -139,7 +142,7 @@ h1, h2, h4, h5, table, .card-title {
 }
 
 .chart-container {
-	height: 500px;
+	height: 470px;
 	position: relative;
 }
 
@@ -159,7 +162,7 @@ body.dark .card-header {
 	  color: #000;
 }
 
-body.dark .fa-globe-americas,.fa-chart-bar, .fa-table {
+body.dark .fa-globe-americas,.fa-chart-bar, .fa-table, .fa-chart-line {
 	padding: 10px;
 	color: #222;
 	text-align: center;
@@ -174,7 +177,7 @@ body.dark .jumbotron {
 }
 
 .chart-container2 {
-	height: 500px;
+	height: 453px;
 	position: relative;
 }
 
@@ -188,4 +191,31 @@ body.dark .jumbotron {
 
 #btnProvincia {
 	width: 39.13px;
+}
+
+#consultaRango {
+	width: 350px;
+	margin: 0 auto;
+}
+
+.input-group {
+	margin-top: 10px;
+}
+
+#cardRango {
+	margin-block-end: 10px;
+	margin-top: 10px;
+}
+
+.modal-header {
+	color: #fff;
+	background-color: #2C3E50;
+}
+
+#bodyVista1, #bodyVista2 {
+	padding: 0px;
+}
+
+div.card-body {
+	padding-bottom: 5px;
 }

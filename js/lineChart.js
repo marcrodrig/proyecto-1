@@ -4,14 +4,25 @@ var chartType = 'line';
 
 var dataAcumulados = {
     labels: [],
-    datasets: [{
-        label: 'Casos acumulados',
-        data: [],
-        fill: false,
-        backgroundColor: 'rgba(255, 159, 64, 0.2)',                              
-        borderColor: 'rgba(255, 159, 64, 1)',
-        borderWidth: 1
-    }]
+    datasets:
+    [
+        {
+            label: 'Casos acumulados',
+            data: [],
+            fill: false,
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',                              
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 1
+        },
+        {
+            label: 'Casos confirmados',
+            data: [],
+            fill: false,
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',                              
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 1
+        }
+    ]
 };
 
 var options = {

@@ -30,7 +30,7 @@ $(document).ready(function() {
     });
     dateRangePickerRango = $('input[name="rango"]').dateRangePicker({
 	    showShortcuts: false,
-	    //showTopbar: false,
+	    showTopbar: false,
         format: 'DD/MM/YYYY',
         startDate: '05/04/2020',
         endDate: '15/04/2020',

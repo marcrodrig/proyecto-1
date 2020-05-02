@@ -2,7 +2,7 @@ var map;
 var topoLayer;
 
 function initmap() {
-    map = L.map("map").setView([-39, -59], 4);
+    map = L.map("map").setView([-40.2, -59], 3.5);
     map.on('resize', function () {
         map.invalidateSize();
     });

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/png" href="img/mr-icon.png">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     <!-- Graduate (font) -->
@@ -22,7 +23,7 @@
   </head>
   <body>
     <nav class="navbar navbar-dark bg-primary py-1 fixed-top">  
-      <img src="https://raw.githubusercontent.com/marcrodrig/proyecto-1/master/img/mr-logo.png" width="45" height="45" class="d-inline-block align-top" alt="">
+      <img src="img/mr-icon.png" width="45" height="45" class="d-inline-block align-top" alt="">
       <span class="d-inline-block align-middle">MR DATA</span>
       <button class="switch active btn-secondary" id="switch">
         <span><i class="fas fa-sun"></i></span>
@@ -36,32 +37,32 @@
         <h4>Fuente:</h4>
         <h5> Datos extraídos de los <a href="https://www.argentina.gob.ar/coronavirus/informe-diario">informes diarios</a> del Ministerio de Salud de la Nación Argentina.</h5>
       </div>
-      <div class="card-deck">
-        <div class="card">
-          <i class="fas fa-globe-americas fa-7x"></i>
-          <div class="card-body">
-            <h5 class="card-title">Mapa coroplético</h5>
-            <p class="card-text">Mapa coroplético en relación a la cantidad de casos acumulados por provincia, mostrando los casos confirmados por día seleccionado.</p>
-          </div>
-        </div>
-        <div class="card">
-          <i class="fas fa-table fa-7x"></i>
-          <div class="card-body">
-            <h5 class="card-title">Tabla</h5>
-            <p class="card-text">Tabla detallada con los casos confirmados y acumulados por provincia al día seleccionado.</p>
-          </div>
-        </div>
-        <div class="card">
-          <i class="fas fa-chart-bar fa-7x"></i>
-          <div class="card-body">
-            <h5 class="card-title">Gráfico de barras</h5>
-            <p class="card-text">Gráfico de barras horizontal con la cantidad de casos acumulados por provincia al día seleccionado.</p>
-          </div>
-        </div>
-      </div>
       <div class="card" id="cardDia">
-        <h5 class="card-header">Día</h5>
+        <h5 class="card-header">Consulta por día</h5>
         <div class="card-body">
+              <div class="card-deck">
+                <div class="card">
+                  <i class="fas fa-globe-americas fa-7x"></i>
+                  <div class="card-body">
+                    <h5 class="card-title">Mapa coroplético</h5>
+                    <p class="card-text">Mapa coroplético en relación a la cantidad de casos acumulados por provincia, mostrando los casos confirmados por día seleccionado.</p>
+                  </div>
+                </div>
+                <div class="card">
+                  <i class="fas fa-table fa-7x"></i>
+                  <div class="card-body">
+                    <h5 class="card-title">Tabla</h5>
+                    <p class="card-text">Tabla detallada con los casos confirmados y acumulados por provincia al día seleccionado.</p>
+                  </div>
+                </div>
+                <div class="card">
+                  <i class="fas fa-chart-bar fa-7x"></i>
+                  <div class="card-body">
+                    <h5 class="card-title">Gráfico de barras</h5>
+                    <p class="card-text">Gráfico de barras horizontal con la cantidad de casos acumulados por provincia al día seleccionado.</p>
+                  </div>
+                </div>
+              </div>
               <div class="input-group">
                 <div class="input-group-append">
                   <button type="button" class="btn btn-secondary" id="btnCalendario">
@@ -72,7 +73,7 @@
               </div>
         </div>
       </div>
-      <div class="collapse" id="collapseMapaTabla">
+      <div class="collapse" id="collapseMapaTablaBarras">        
         <div class="card">
           <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="tabs" role="tablist">
@@ -87,9 +88,8 @@
               </li>
             </ul>
           </div>
-          <div class="card-body">
-            <h4 class="card-title">Detalle por provincias</h4>          
-            <div class="tab-content mt-3">
+          <div class="card-body" id="bodyVista1">             
+            <div class="tab-content">
               <div class="tab-pane active" id="mapa" role="tabpanel">
                 <div id="map">
 
@@ -122,9 +122,34 @@
           </div>
         </div>
       </div>
-      <div class="card">
-        <h5 class="card-header">Rango de días</h5>
+      <!-- Modal -->
+      <div class="modal" id="modalRango" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">Error</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Las fechas de comienzo y final del rango no pueden ser el mismo día.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card" id="cardRango">
+        <h5 class="card-header">Consulta por rango de días</h5>
         <div class="card-body">
+          <div class="card" id="consultaRango">
+            <i class="fas fa-chart-line fa-7x"></i>
+            <div class="card-body">
+              <h5 class="card-title">Gráficos de líneas</h5>
+              <p class="card-text">Gráfico de líneas con la cantidad de casos confirmados y casos acumulados en un rango de días y provincia seleccionadas.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
           <div class="input-group">
             <div class="input-group-prepend">
               <button type="button" class="btn btn-secondary">
@@ -133,7 +158,9 @@
             </div>
             <input class="form-control" name="rango" id="rango" placeholder="Seleccione un rango de días" readonly="true" value="">
           </div>
-          <div class="input-group mb-3">
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
             <div class="input-group-prepend">
               <button type="button" class="btn btn-secondary" id="btnProvincia">
                 <i class="fas fa-home" aria-hidden="true"></i>
@@ -168,8 +195,10 @@
             </select>
           </div>
         </div>
+        </div>
       </div>
-      <div class="collapse" id="collapseGraficos2">
+      </div>
+      <div class="collapse" id="collapseGrafico">
         <div class="card">
           <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="tabs2" role="tablist">
@@ -178,9 +207,8 @@
               </li>
             </ul>
           </div>
-          <div class="card-body">
-            <h4 class="card-title">Detalle por provincias</h4>          
-            <div class="tab-content mt-3">
+          <div class="card-body" id="bodyVista2">      
+            <div class="tab-content">
               <div class="tab-pane active" id="grafico" role="tabpanel">
                 <div class="chart-container2">
                   <canvas id="chart2"></canvas>

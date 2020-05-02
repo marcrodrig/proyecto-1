@@ -41,9 +41,11 @@ function setUpEvents() {
     dateRangePickerRango.on('datepicker-change', function(evt, obj) {
         console.log('change',obj);
         var rangoSeleccionado = document.getElementById("rango");
-        rangoSeleccionado.value = obj.value;
-        chequearRango(rangoSeleccionado.value);
-        mostrarGraficoRango();
+        var chequeo = chequearRango(obj.value);
+        if (chequeo === true) {
+            rangoSeleccionado.value = obj.value;
+            mostrarGraficoRango();
+        }
     });
     // Selección de provincia
     const provinciaSeleccionada = document.getElementById("selectProvincia");
@@ -54,7 +56,7 @@ function mostrarMapaTablaBarras(diaMesAño) {
     console.log('mostrar');
     var diaMes = diaMesAño.slice(0,5);
     var diaMesArray = diaMes.split("/");
-    console.log('dm',diaMesArray);
+    console.log('día/mes',diaMesArray);
     var dia = parseInt(diaMesArray[0]);
     var mes = parseInt(diaMesArray[1]);
     let json = "casos-" + dia + "-" + mes + ".json";
@@ -77,8 +79,11 @@ function mostrarMapaTablaBarras(diaMesAño) {
         }
         // Gráfico de barras
         datos.forEach(actualizarBarChart);
-
-        $('#collapseMapaTabla').collapse();
+        $('#collapseMapaTablaBarras').collapse();
+        var consultaDia = $('#inputDia');
+        $('html,body').animate({
+            scrollTop: $('#inputDia').offset().top - 54
+        }, 500);
         map.invalidateSize();
     });
 }
@@ -136,7 +141,7 @@ function getConfirmadosByProvincia(nombreProvincia) {
         case "Santa Cruz" : return datos[19].confirmados;
         case "Santa Fe" : return datos[20].confirmados;
         case "Santiago del Estero" : return datos[21].confirmados;
-        case "Tierra del Fuego, Antártida e Islas del Atlántico Sur" : return datos[22].confirmados;
+        case "Tierra del Fuego" : return datos[22].confirmados;
         case "Tucumán" : return datos[23].confirmados;
     } 
 }
@@ -165,7 +170,7 @@ function getAcumuladosByProvincia(nombreProvincia) {
         case "Santa Cruz" : return datos[19].acumulados;
         case "Santa Fe" : return datos[20].acumulados;
         case "Santiago del Estero" : return datos[21].acumulados;
-        case "Tierra del Fuego, Antártida e Islas del Atlántico Sur" : return datos[22].acumulados;
+        case "Tierra del Fuego" : return datos[22].acumulados;
         case "Tucumán" : return datos[23].acumulados;
     }
 }
@@ -187,6 +192,11 @@ function chequearRango(rangoSeleccionado) {
     console.log('dm2',diaMesArray);
     dia2 = parseInt(diaMesArray[0]);
     mes2 = parseInt(diaMesArray[1]);
+    if (dia1 === dia2 & mes1 === mes2) {
+        console.log('alerta rango de días');
+        $('#modalRango').modal('show');
+        return false;
+    } else return true;
 }
 
 function mostrarGraficoRango() {
@@ -197,7 +207,8 @@ function mostrarGraficoRango() {
             console.log("provincia",provinciaSeleccionada);
         else {
             actualizarLineChart(dia1, mes2, dia2, mes2, provinciaSeleccionada);
-            $('#collapseGraficos2').collapse();
+            $('#collapseGrafico').collapse();
+            $('html, body').animate({scrollTop:$(document).height()}, 500);
         }
     }
 }
