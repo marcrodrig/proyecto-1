@@ -80,11 +80,12 @@ function mostrarMapaTablaBarras(diaMesAño) {
         // Gráfico de barras
         datos.forEach(actualizarBarChart);
         $('#collapseMapaTablaBarras').collapse();
+        map.invalidateSize();
         var consultaDia = $('#inputDia');
         $('html,body').animate({
             scrollTop: $('#inputDia').offset().top - 54
         }, 500);
-        map.invalidateSize();
+        
     });
 }
 
