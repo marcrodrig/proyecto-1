@@ -216,7 +216,8 @@ function mostrarGraficoRango() {
 
 function actualizarLineChart(dia1, mes1, dia2, mes2, provinciaSeleccionada) {
     var newLabels = [];
-    var newData = [];
+    var newDataConfirmados = [];
+    var newDataAcumulados = [];
     var index = 0;
     if (mes1 == mes2) {
         var inicio = dia1;
@@ -233,14 +234,17 @@ function actualizarLineChart(dia1, mes1, dia2, mes2, provinciaSeleccionada) {
                 } 
             });
             newLabels[index] = inicio + "/" + mes1;
-            newData[index] = getAcumuladosByProvincia(provinciaSeleccionada);
+            newDataConfirmados[index] = getConfirmadosByProvincia(provinciaSeleccionada);
+            newDataAcumulados[index] = getAcumuladosByProvincia(provinciaSeleccionada);
             inicio++;
             index++;
         }
     }
     console.log('newLabels',newLabels);
-    console.log('newData',newData);
+    console.log('newData',newDataConfirmados);
+    console.log('newData',newDataAcumulados);
     lineChart.data.labels = newLabels;
-    lineChart.data.datasets[0].data = newData;
+    lineChart.data.datasets[0].data = newDataConfirmados;
+    lineChart.data.datasets[1].data = newDataAcumulados;
     lineChart.update();
 }

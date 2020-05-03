@@ -7,7 +7,7 @@ var dataAcumulados = {
     datasets:
     [
         {
-            label: 'Casos acumulados',
+            label: 'Casos confirmados',
             data: [],
             fill: false,
             backgroundColor: 'rgba(255, 159, 64, 0.2)',                              
@@ -15,11 +15,11 @@ var dataAcumulados = {
             borderWidth: 1
         },
         {
-            label: 'Casos confirmados',
+            label: 'Casos acumulados',
             data: [],
             fill: false,
-            backgroundColor: 'rgba(255, 159, 64, 0.2)',                              
-            borderColor: 'rgba(255, 159, 64, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',                              
+            borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1
         }
     ]
