@@ -1,4 +1,4 @@
-var dateRangePickerDia, dateRangePickerRango;
+var dateRangePickerDia;
 
 /* Defino un nuevo lenguaje para dateRangePicker, llamado "es" */
 $.dateRangePickerLanguages['es'] = {
@@ -27,15 +27,5 @@ $(document).ready(function() {
         language: 'es',
         singleDate : true,
         autoClose: true
-    });
-    dateRangePickerRango = $('input[name="rango"]').dateRangePicker({
-	    showShortcuts: false,
-	    showTopbar: false,
-        format: 'DD/MM/YYYY',
-        startDate: '05/04/2020',
-        endDate: '15/04/2020',
-        separator: ' al ',
-        language: 'es',
-        autoClose: true     
     });
 });

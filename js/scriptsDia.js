@@ -1,8 +1,3 @@
-if (localStorage.getItem('dark-mode') === 'true')
-    document.body.classList.add('dark');
-else
-    document.body.classList.remove('dark');
-
 window.onload = function() {
     setUpEvents();
 }
@@ -11,16 +6,43 @@ let datos;
 var dia1, dia2, mes1, mes2;
 
 function setUpEvents() {
+    const btnSidebarToggle = document.getElementById('sidebarToggle');
+    btnSidebarToggle.addEventListener('click', function() { 
+        if(document.body.classList.contains('sb-sidenav-toggled'))
+            localStorage.setItem('sidebar','false');
+        else
+            localStorage.setItem('sidebar','true');
+    });
     // Switch
     const btnSwitch = document.querySelector('#switch');
     btnSwitch.addEventListener('click', function() {
         document.body.classList.toggle('dark');
         btnSwitch.classList.toggle('active');
     
-        if(document.body.classList.contains('dark'))
+        //.classList.toggle('sb-sidenav-light');
+        //document.getElementById('sidenavAccordion').classList.toggle('sb-sidenav-light');
+       // Checking class using hasClass 
+        //if($('#sidenavAccordion').hasClass('sb-sidenav-light')){
+     
+           // Switch class from post-unread to post-read
+       //    $('#sidenavAccordion').switchClass("sb-sidenav-light","sb-sidenav-dark");
+        //   $(this).text('UnRead'); // Changing Button Text
+        //}else{
+           // Switch class from post-read to post-unread
+         //  $('#'+post_id).switchClass("post-read","post-unread");
+         //  $(this).text('Read'); // Changing Button Text
+        //} 
+        var sidenav = document.getElementById('sidenavAccordion');
+        if(document.body.classList.contains('dark')) {
+            sidenav.classList.add('sb-sidenav-dark');
+            sidenav.classList.remove('sb-sidenav-light');
             localStorage.setItem('dark-mode','true');
-        else
+        }
+        else {
+            sidenav.classList.add('sb-sidenav-light');
+            sidenav.classList.remove('sb-sidenav-dark');
             localStorage.setItem('dark-mode','false');
+        }
     });
     // Selección de día
     dateRangePickerDia = $('input[name="dia"]');
@@ -30,26 +52,6 @@ function setUpEvents() {
         diaSeleccionado.value = obj.value;
         mostrarMapaTablaBarras(diaSeleccionado.value);
     });
-    // Cambio de tabs para visualización de las acciones por día, con jQuery:
-    $('#tabs a').on('click', function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-        map.invalidateSize();
-    });
-    // Selección de rango
-    dateRangePickerRango = $('input[name="rango"]');
-    dateRangePickerRango.on('datepicker-change', function(evt, obj) {
-        console.log('change',obj);
-        var rangoSeleccionado = document.getElementById("rango");
-        var chequeo = chequearRango(obj.value);
-        if (chequeo === true) {
-            rangoSeleccionado.value = obj.value;
-            mostrarGraficoRango();
-        }
-    });
-    // Selección de provincia
-    const provinciaSeleccionada = document.getElementById("selectProvincia");
-    provinciaSeleccionada.onchange = mostrarGraficoRango;
 }
 
 function mostrarMapaTablaBarras(diaMesAño) {
@@ -77,16 +79,13 @@ function mostrarMapaTablaBarras(diaMesAño) {
                 +  "<td>" + item.acumulados + "</td>"
                 "</tr>";
         }
-        // Gráfico de barras
+        // Gráficos de barras
         datos.forEach(actualizarBarChart);
         $('#collapseMapaTablaBarras').collapse();
         map.invalidateSize();
-        var consultaDia = $('#inputDia');
-        $('html,body').animate({
-            scrollTop: $('#inputDia').offset().top - 54
-        }, 500);
-        
+        map.setView([-40, -60], 4);
     });
+    map.setView([-40, -60], 4);
 }
 
 function handleLayer(layer){
@@ -102,7 +101,7 @@ function handleLayer(layer){
      layer.on({
          mouseover: highlightFeature,
          mouseout: resetHighlight,
-         click: zoomToFeature
+        // click: zoomToFeature
      });
  }
 
@@ -177,74 +176,8 @@ function getAcumuladosByProvincia(nombreProvincia) {
 }
 
 function actualizarBarChart(item, index) {
-    barChart.data.datasets[0].data[index] = item.acumulados;
-    barChart.update();
-}
-
-function chequearRango(rangoSeleccionado) {
-    console.log('rango');
-    var diaMes = rangoSeleccionado.slice(0,5);
-    var diaMesArray = diaMes.split("/");
-    console.log('dm1',diaMesArray);
-    dia1 = parseInt(diaMesArray[0]);
-    mes1 = parseInt(diaMesArray[1]);
-    diaMes = rangoSeleccionado.slice(14,19);
-    diaMesArray = diaMes.split("/");
-    console.log('dm2',diaMesArray);
-    dia2 = parseInt(diaMesArray[0]);
-    mes2 = parseInt(diaMesArray[1]);
-    if (dia1 === dia2 & mes1 === mes2) {
-        console.log('alerta rango de días');
-        $('#modalRango').modal('show');
-        return false;
-    } else return true;
-}
-
-function mostrarGraficoRango() {
-    if (dia1 !== undefined) {
-        var selectProv = document.getElementById("selectProvincia");
-        var provinciaSeleccionada = selectProv.value;
-        if (provinciaSeleccionada == "")
-            console.log("provincia",provinciaSeleccionada);
-        else {
-            actualizarLineChart(dia1, mes2, dia2, mes2, provinciaSeleccionada);
-            $('#collapseGrafico').collapse();
-            $('html, body').animate({scrollTop:$(document).height()}, 500);
-        }
-    }
-}
-
-function actualizarLineChart(dia1, mes1, dia2, mes2, provinciaSeleccionada) {
-    var newLabels = [];
-    var newDataConfirmados = [];
-    var newDataAcumulados = [];
-    var index = 0;
-    if (mes1 == mes2) {
-        var inicio = dia1;
-        let json;
-        while (inicio <= dia2) {
-            json = "casos-" + inicio + "-" + mes1 + ".json";
-            $.ajax({
-                url: json,
-                dataType: 'json',  
-                async: false,
-                success: function(dato){ 
-                    console.log(json,dato);
-                    datos = dato;
-                } 
-            });
-            newLabels[index] = inicio + "/" + mes1;
-            newDataConfirmados[index] = getConfirmadosByProvincia(provinciaSeleccionada);
-            newDataAcumulados[index] = getAcumuladosByProvincia(provinciaSeleccionada);
-            inicio++;
-            index++;
-        }
-    }
-    console.log('newLabels',newLabels);
-    console.log('newData',newDataConfirmados);
-    console.log('newData',newDataAcumulados);
-    lineChart.data.labels = newLabels;
-    lineChart.data.datasets[0].data = newDataConfirmados;
-    lineChart.data.datasets[1].data = newDataAcumulados;
-    lineChart.update();
+    barChart1.data.datasets[0].data[index] = item.confirmados;
+    barChart2.data.datasets[0].data[index] = item.acumulados;
+    barChart1.update();  
+    barChart2.update();
 }

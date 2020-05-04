@@ -1,248 +1,155 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" type="image/png" href="img/mr-icon.png">
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-    <!-- Graduate (font) -->
-    <link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
-    <!-- ChartJS CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous" />
-    <!-- jQuery Date Range Picker CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.20.0/daterangepicker.css" integrity="sha256-lu0YNUWGC84eeyEDQCLf4y/P7ID9yVTdU4D71MJnjjw=" crossorigin="anonymous" />
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Proyecto 1</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-dark bg-primary py-1 fixed-top">  
-      <img src="img/mr-icon.png" width="45" height="45" class="d-inline-block align-top" alt="">
-      <span class="d-inline-block align-middle">MR DATA</span>
-      <button class="switch active btn-secondary" id="switch">
-        <span><i class="fas fa-sun"></i></span>
-        <span><i class="fas fa-moon"></i></span>
-      </button>
+    <link rel="shortcut icon" type="image/png" href="img/mr-icon.png">
+    <!-- Graduate (font) -->
+<link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/switchModo.css">
+    <link rel="stylesheet" href="css/modoOscuro.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+    
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        
+        <a class="navbar-brand" href="index.html"><img src="img/mr-icon.png" width="45" height="45">MR DATA</a><button
+            class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+                class="fas fa-bars"></i></button>
     </nav>
-    <div class="container">      
-      <div class="jumbotron">
-        <h1>COVID-19 en Argentina</h1>
-        <h2>Información de los casos confirmados y acumulados en el territorio Argentino.</h2>
-        <h4>Fuente:</h4>
-        <h5> Datos extraídos de los <a href="https://www.argentina.gob.ar/coronavirus/informe-diario">informes diarios</a> del Ministerio de Salud de la Nación Argentina.</h5>
-      </div>
-      <div class="card" id="cardDia">
-        <h5 class="card-header">Consulta por día</h5>
-        <div class="card-body">
-              <div class="card-deck">
-                <div class="card">
-                  <i class="fas fa-globe-americas fa-7x"></i>
-                  <div class="card-body">
-                    <h5 class="card-title">Mapa coroplético</h5>
-                    <p class="card-text">Mapa coroplético en relación a la cantidad de casos acumulados por provincia, mostrando los casos confirmados por día seleccionado.</p>
-                  </div>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <script src="js/sidebarLocalStorage.js"></script>
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Home</div>
+                        <a class="nav-link" href="index.html">
+                            <div class="sb-nav-link-icon"><img src="img/mr-icon.png" width="25" height="25"></div>
+                            COVID-19
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
+                            aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                            Pantalla
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        <div class="collapse align-items-center" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">                            
+                            <nav class="sb-sidenav-menu-nested nav align-items-center">
+                           <!--     <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a> -->
+                           Tema claro / Tema oscuro     
+                           <button class="switch active btn-secondary justify-content-center" id="switch">
+                                    <span><i class="fas fa-sun"></i></span>
+                                    <span><i class="fas fa-moon"></i></span>
+                                  </button>
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Servicios</div>
+                            <a class="nav-link" href="consultasDia.html"
+                                ><div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                                Consulta por día
+                            </a>
+                            <a class="nav-link" href="consultasRango.html"
+                                ><div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                                Consulta por rango de días
+                            </a>
+                    </div>
                 </div>
-                <div class="card">
-                  <i class="fas fa-table fa-7x"></i>
-                  <div class="card-body">
-                    <h5 class="card-title">Tabla</h5>
-                    <p class="card-text">Tabla detallada con los casos confirmados y acumulados por provincia al día seleccionado.</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <i class="fas fa-chart-bar fa-7x"></i>
-                  <div class="card-body">
-                    <h5 class="card-title">Gráfico de barras</h5>
-                    <p class="card-text">Gráfico de barras horizontal con la cantidad de casos acumulados por provincia al día seleccionado.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group" id="inputDia">
-                <div class="input-group-append">
-                  <button type="button" class="btn btn-secondary" id="btnCalendario">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                  </button>
-                </div>
-                <input class="form-control" name="dia" id="dia" placeholder="Seleccione un día" readonly="true" value="">
-              </div>
+            </nav>
         </div>
-      </div>
-      <div class="collapse" id="collapseMapaTablaBarras">        
-        <div class="card">
-          <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs" id="tabs" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" href="#mapa" role="tab" aria-controls="mapa" aria-selected="true">Mapa coroplético</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link"  href="#tabla" role="tab" aria-controls="tabla" aria-selected="false">Tabla</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link"  href="#bar" role="tab" aria-controls="bar" aria-selected="false">Gráfico de barras</a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body" id="bodyVista1">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div class="jumbotron">
+                        <h1>COVID-19 en Argentina</h1>
+                        <h2>Información de los casos confirmados y acumulados en el territorio Argentino.</h2>
+                        <h4>Fuente:</h4>
+                        <h5> Datos extraídos de los <a
+                                href="https://www.argentina.gob.ar/coronavirus/informe-diario">informes diarios</a> del
+                            Ministerio de Salud de la Nación Argentina.</h5>
+                    </div>
+                    <h1 class="mt-4">Servicios</h1>
+                  
+                            <div class="card" id="cardDia">
+                                <h5 class="card-header">Consulta por día</h5>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card bg-light">
+                                                <div class="card-body" id="card1">
+                                                    <i class="fas fa-table fa-7x"></i>
+                                                    <h5 class="card-title">Tabla</h5>
+                                                    <p class="card-text">Tabla detallada con los casos confirmados y
+                                                        acumulados por provincia al día seleccionado.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card bg-light">
+                                                <div class="card-body">
+                                                    <i class="fas fa-globe-americas fa-7x"></i>
+                                                    <h5 class="card-title">Mapa coroplético</h5>
+                                                    <p class="card-text">Mapa coroplético en relación a la cantidad de
+                                                        casos acumulados por provincia, mostrando los casos confirmados
+                                                        por día seleccionado.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card bg-light">
+                                                <div class="card-body">
+                                                    <i class="fas fa-chart-bar fa-7x"></i>
+                                                    <h5 class="card-title">Gráficos de barras</h5>
+                                                    <p class="card-text">Gráficos de barras horizontal con la cantidad de
+                                                        casos confirmados y acumulados por provincia al día seleccionado.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-dark" href="consultasDia.html" role="button">Ir1</a>
+                                </div>
+                            </div>
                     
-            <div class="tab-content">
-              <div class="tab-pane active" id="mapa" role="tabpanel">
-                <div id="map">
-
+                   
+                            <div class="card mt-4 mx-auto w-75" id="cardRango">
+                                <h5 class="card-header">Consulta por rango de días</h5>
+                                <div class="card-body">
+                                    <div class="card bg-light" id="cardRangoInt">
+                                        <div class="card-body">
+                                            <i class="fas fa-chart-line fa-7x"></i>
+                                            <h5 class="card-title">Gráficos de líneas</h5>
+                                            <p class="card-text text-center">Gráfico de líneas con la cantidad de casos confirmados
+                                                y casos acumulados en un rango de días y provincia seleccionadas.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-dark" href="consultasRango.html" role="button">Ir2</a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
-              </div>
-              <div class="tab-pane" id="tabla" role="tabpanel" aria-labelledby="tabla-tab">  
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th class="th">Provincia</th>
-                        <th class="th">Confirmados</th>
-                        <th class="th">Acumulados</th>
-                      </tr>
-                    </thead>
-                    <tbody id="resultadoTabla">
-
-                    </tbody>
-                  </table>              
-                </div>          
-              </div>
-              <div class="tab-pane" id="bar" role="tabpanel" aria-labelledby="bar-tab">  
-               
-                <div class="chart-container">
-                  <canvas id="chart"></canvas>
-              </div>
-      
-              </div>
-            </div>
-          </div>
+            </main>
         </div>
-      </div>
-      <!-- Modal -->
-      <div class="modal" id="modalRango" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalTitle">Error</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Las fechas de comienzo y final del rango no pueden ser el mismo día.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card" id="cardRango">
-        <h5 class="card-header">Consulta por rango de días</h5>
-        <div class="card-body">
-          <div class="card" id="consultaRango">
-            <i class="fas fa-chart-line fa-7x"></i>
-            <div class="card-body">
-              <h5 class="card-title">Gráficos de líneas</h5>
-              <p class="card-text">Gráfico de líneas con la cantidad de casos confirmados y casos acumulados en un rango de días y provincia seleccionadas.</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="button" class="btn btn-secondary">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-              </button>
-            </div>
-            <input class="form-control" name="rango" id="rango" placeholder="Seleccione un rango de días" readonly="true" value="">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="button" class="btn btn-secondary" id="btnProvincia">
-                <i class="fas fa-home" aria-hidden="true"></i>
-              </button>
-            </div>
-            <select id="selectProvincia" class="form-control" aria-placeholder="Seleccione una provincia">
-              <option disabled selected value="">Seleccione una provincia</option>
-              <option>Buenos Aires</option>
-              <option>Ciudad Autónoma de Buenos Aires</option>
-              <option>Catamarca</option>
-              <option>Chaco</option>
-              <option>Chubut</option>
-              <option>Córdoba</option>
-              <option>Corrientes</option>
-              <option>Entre Ríos</option>
-              <option>Formosa</option>
-              <option>Jujuy</option>
-              <option>La Pampa</option>
-              <option>La Rioja</option>
-              <option>Mendoza</option>
-              <option>Misiones</option>
-              <option>Neuquén</option>
-              <option>Río Negro</option>
-              <option>Salta</option>
-              <option>San Juan</option>
-              <option>San Luis</option>
-              <option>Santa Cruz</option>
-              <option>Santa Fe</option>
-              <option>Santiago del Estero</option>
-              <option>Tierra del Fuego, Antártida e Islas del Atlántico Sur</option>
-              <option>Tucumán</option>
-            </select>
-          </div>
-        </div>
-        </div>
-      </div>
-      </div>
-      <div class="collapse" id="collapseGrafico">
-        <div class="card">
-          <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs" id="tabs2" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" href="#grafico1" role="tab" aria-controls="grafico1" aria-selected="true">Gráfico 1</a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body" id="bodyVista2">      
-            <div class="tab-content">
-              <div class="tab-pane active" id="grafico" role="tabpanel">
-                <div class="chart-container2">
-                  <canvas id="chart2"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Moment JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
-      <!-- jQuery JavaScript -->
-      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-      <!-- jQuery Date Range Picker JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.20.0/jquery.daterangepicker.min.js" integrity="sha256-qQx2CIbSRccEP6dedJGT0WHKhX0WhZi8crKw6TzfUeI=" crossorigin="anonymous"></script>
-      <!-- Popper JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <!-- Bootstrap JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      <!-- Leaflet JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js" integrity="sha256-fNoRrwkP2GuYPbNSJmMJOCyfRB2DhPQe0rGTgzRsyso=" crossorigin="anonymous"></script>
-      <!-- ChartJS JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
-      <!-- Leaflet Providers JavaScript -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.9.1/leaflet-providers.js" integrity="sha256-rvLhwzAFnv7VYTR6DaKTU8FyC2bmnFIGp1/T8TTyLW4=" crossorigin="anonymous"></script>
-      
-      <script src="https://d3js.org/topojson.v1.min.js"></script>
-      <!-- JavaScript -->
-      <script src="js/datePickers.js"></script>
-      <script src="js/mapa.js"></script>
-      <script src="js/barChart.js"></script>
-      <script src="js/lineChart.js"></script>
-      <script src="js/app.js"></script>    
     </div>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/home.js"></script>
+</body>
+
 </html>

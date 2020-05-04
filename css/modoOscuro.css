@@ -1,0 +1,24 @@
+body.dark {
+	color: #fff;
+  	background-color: #222;
+}
+
+body.dark .card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+	background-color: #444;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/*.fa-globe-americas, .fa-chart-bar, .fa-table, .fa-chart-line, .sb-sidevav-light .fa-edit {
+	color: #222;
+	
+}*/
+
+body.dark .card-body {
+	  color: #000;
+}
+
+body.dark .jumbotron {
+	background-color: #777;
+}

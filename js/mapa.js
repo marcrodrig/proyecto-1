@@ -2,7 +2,7 @@ var map;
 var topoLayer;
 
 function initmap() {
-    map = L.map("map").setView([-40.2, -59], 3.5);
+    map = L.map("map");
     map.on('resize', function () {
         map.invalidateSize();
     });
@@ -22,10 +22,15 @@ function initmap() {
         }
       });
       // Copyright (c) 2013 Ryan Clark
-  
+      /*
+*	Extension for Leaflet to use TopoJSON
+*	Snippet by (c) 2013 Ryan Clark
+*	https://gist.github.com/rclark/5779673
+*/
     topoLayer = new L.TopoJSON();
     $.getJSON('argentina-provinces.json')
         .done(addTopoData);
+       // map.setView([-40, -60], 4);
 }
 
 initmap();
@@ -33,6 +38,8 @@ initmap();
 function addTopoData(topoData) {  
     topoLayer.addData(topoData);
     topoLayer.addTo(map);
+    map.setView([-40, -60], 4);
+ //   topoLayer.eachLayer(handleLayer);
   }
 
 function getColorByGrade(d) {
