@@ -8,9 +8,6 @@ var dia1, dia2, mes1, mes2;
 function setUpEvents() {
     const btnSidebarToggle = document.getElementById('sidebarToggle')
     btnSidebarToggle.addEventListener('click', function() {
-       /* document.body.classList.toggle('dark');
-        btnSwitch.classList.toggle('active');*/
-    
         if(document.body.classList.contains('sb-sidenav-toggled'))
             localStorage.setItem('sidebar','false');
         else
@@ -22,19 +19,6 @@ function setUpEvents() {
         document.body.classList.toggle('dark');
         btnSwitch.classList.toggle('active');
     
-        //.classList.toggle('sb-sidenav-light');
-        //document.getElementById('sidenavAccordion').classList.toggle('sb-sidenav-light');
-       // Checking class using hasClass 
-        //if($('#sidenavAccordion').hasClass('sb-sidenav-light')){
-     
-           // Switch class from post-unread to post-read
-       //    $('#sidenavAccordion').switchClass("sb-sidenav-light","sb-sidenav-dark");
-        //   $(this).text('UnRead'); // Changing Button Text
-        //}else{
-           // Switch class from post-read to post-unread
-         //  $('#'+post_id).switchClass("post-read","post-unread");
-         //  $(this).text('Read'); // Changing Button Text
-        //} 
         var sidenav = document.getElementById('sidenavAccordion');
         if(document.body.classList.contains('dark')) {
             sidenav.classList.add('sb-sidenav-dark');
@@ -147,7 +131,7 @@ function mostrarGraficoRango() {
         if (provinciaSeleccionada == "")
             console.log("provincia",provinciaSeleccionada);
         else {
-            actualizarLineChart(dia1, mes2, dia2, mes2, provinciaSeleccionada);
+            actualizarLineChart(dia1, mes1, dia2, mes2, provinciaSeleccionada);
             $('#collapseGrafico').collapse();
         }
     }
@@ -158,32 +142,59 @@ function actualizarLineChart(dia1, mes1, dia2, mes2, provinciaSeleccionada) {
     var newDataConfirmados = [];
     var newDataAcumulados = [];
     var index = 0;
-    if (mes1 == mes2) {
-        var inicio = dia1;
-        let json;
-        while (inicio <= dia2) {
-            json = "casos-" + inicio + "-" + mes1 + ".json";
-            $.ajax({
-                url: json,
-                dataType: 'json',  
-                async: false,
-                success: function(dato){ 
-                    console.log(json,dato);
-                    datos = dato;
-                } 
-            });
-            newLabels[index] = inicio + "/" + mes1;
+    let json = "informes.json";
+    $.getJSON(json, function (dato) {
+        var inicioMes = mes1;
+        var inicioDia = dia1;
+        while (inicioMes !== mes2) {
+            var diaFM = diaFinMes(inicioMes);
+            while (inicioDia <= diaFM) {
+                datos = dato;
+                let datosDia = getDatosByDia(inicioDia + "/" + inicioMes);
+                console.log("datosDia",datosDia);
+                datos = datosDia.informe;
+                newLabels[index] = inicioDia + "/" + inicioMes;
+                newDataConfirmados[index] = getConfirmadosByProvincia(provinciaSeleccionada);
+                newDataAcumulados[index] = getAcumuladosByProvincia(provinciaSeleccionada);
+                inicioDia++;
+                index++;
+            }
+            inicioDia = 1;
+            inicioMes++;
+        }
+
+        console.log('index',index);
+        // mes1 == mes2
+        while (inicioDia <= dia2) {
+            datos = dato;
+            let datosDia = getDatosByDia(inicioDia + "/" + mes2);
+            console.log("datosDia",datosDia);
+            datos = datosDia.informe;
+            newLabels[index] = inicioDia + "/" + mes2;
             newDataConfirmados[index] = getConfirmadosByProvincia(provinciaSeleccionada);
             newDataAcumulados[index] = getAcumuladosByProvincia(provinciaSeleccionada);
-            inicio++;
+            inicioDia++;
             index++;
         }
-    }
-    console.log('newLabels',newLabels);
-    console.log('newData',newDataConfirmados);
-    console.log('newData',newDataAcumulados);
-    lineChart.data.labels = newLabels;
-    lineChart.data.datasets[0].data = newDataConfirmados;
-    lineChart.data.datasets[1].data = newDataAcumulados;
-    lineChart.update();
+        console.log('newLabels',newLabels);
+        console.log('newDataConfirmados',newDataConfirmados);
+        console.log('newDataAcumulados',newDataAcumulados);
+        lineChart.data.labels = newLabels;
+        lineChart.data.datasets[0].data = newDataConfirmados;
+        lineChart.data.datasets[1].data = newDataAcumulados;
+        lineChart.update();
+    });
+}
+
+// Tiene en cuenta los meses: Marzo y Abril
+function diaFinMes(mes) {
+    if (mes === 3)
+        return 31;
+    else // mes === 4
+        return 30;
+}
+
+function getDatosByDia(dia) {
+    let obj = datos.find(item => item.dia === dia);
+    return obj;
 }

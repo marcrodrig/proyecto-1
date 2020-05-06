@@ -18,8 +18,8 @@ $(document).ready(function() {
     dateRangePickerDia =  $('input[name="dia"]').dateRangePicker({
         singleMonth: true,
         format: 'DD/MM/YYYY',
-        startDate: '05/04/2020',
-        endDate: '15/04/2020',
+        startDate: '05/03/2020',
+        endDate: '05/05/2020',
         stickyMonths: false,
         showShortcuts: false,
 	    showTopbar: false,

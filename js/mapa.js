@@ -8,6 +8,11 @@ function initmap() {
     });
     L.tileLayer.provider('Esri.WorldGrayCanvas').addTo(map);
     
+    /*
+    *	Extension for Leaflet to use TopoJSON
+    *	Copyright (c) 2013 Ryan Clark
+    *	https://gist.github.com/rclark/5779673
+    */
     L.TopoJSON = L.GeoJSON.extend({
         addData: function(jsonData) {
           if (jsonData.type === 'Topology') {
@@ -21,16 +26,11 @@ function initmap() {
           }
         }
       });
-      // Copyright (c) 2013 Ryan Clark
-      /*
-*	Extension for Leaflet to use TopoJSON
-*	Snippet by (c) 2013 Ryan Clark
-*	https://gist.github.com/rclark/5779673
-*/
+
     topoLayer = new L.TopoJSON();
     $.getJSON('argentina-provinces.json')
         .done(addTopoData);
-       // map.setView([-40, -60], 4);
+    map.setView([-40, -60], 4);
 }
 
 initmap();
@@ -38,9 +38,7 @@ initmap();
 function addTopoData(topoData) {  
     topoLayer.addData(topoData);
     topoLayer.addTo(map);
-    map.setView([-40, -60], 4);
- //   topoLayer.eachLayer(handleLayer);
-  }
+}
 
 function getColorByGrade(d) {
     return  d > 1000 ? '#800026' :

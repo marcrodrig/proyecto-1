@@ -19,19 +19,6 @@ function setUpEvents() {
         document.body.classList.toggle('dark');
         btnSwitch.classList.toggle('active');
     
-        //.classList.toggle('sb-sidenav-light');
-        //document.getElementById('sidenavAccordion').classList.toggle('sb-sidenav-light');
-       // Checking class using hasClass 
-        //if($('#sidenavAccordion').hasClass('sb-sidenav-light')){
-     
-           // Switch class from post-unread to post-read
-       //    $('#sidenavAccordion').switchClass("sb-sidenav-light","sb-sidenav-dark");
-        //   $(this).text('UnRead'); // Changing Button Text
-        //}else{
-           // Switch class from post-read to post-unread
-         //  $('#'+post_id).switchClass("post-read","post-unread");
-         //  $(this).text('Read'); // Changing Button Text
-        //} 
         var sidenav = document.getElementById('sidenavAccordion');
         if(document.body.classList.contains('dark')) {
             sidenav.classList.add('sb-sidenav-dark');
@@ -57,14 +44,18 @@ function setUpEvents() {
 function mostrarMapaTablaBarras(diaMesAño) {
     console.log('mostrar');
     var diaMes = diaMesAño.slice(0,5);
+    console.log("diaMes",diaMes);
     var diaMesArray = diaMes.split("/");
     console.log('día/mes',diaMesArray);
     var dia = parseInt(diaMesArray[0]);
     var mes = parseInt(diaMesArray[1]);
-    let json = "casos-" + dia + "-" + mes + ".json";
+    let json = "informes.json";
     $.getJSON(json, function (dato) {
-        console.log(dato);
+        console.log("dato",dato);
         datos = dato;
+        let datosDia = getDatosByDia(dia + "/" + mes);
+        console.log("datosDia",datosDia);
+        datos = datosDia.informe;
         // Mapa
         topoLayer.eachLayer(handleLayer);
         // Tabla
@@ -83,9 +74,12 @@ function mostrarMapaTablaBarras(diaMesAño) {
         datos.forEach(actualizarBarChart);
         $('#collapseMapaTablaBarras').collapse();
         map.invalidateSize();
-        map.setView([-40, -60], 4);
     });
-    map.setView([-40, -60], 4);
+}
+
+function getDatosByDia(dia) {
+    let obj = datos.find(item => item.dia === dia);
+    return obj;
 }
 
 function handleLayer(layer){
