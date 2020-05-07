@@ -24,9 +24,6 @@ h1, h2, h4, h5, table, .card-title {
 }
 
 /* Para el calendario */
-.month-wrapper {
-	width: 202px;
-}
 .date-picker-wrapper {
 	z-index: 9999 !important; 
 }

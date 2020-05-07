@@ -23,12 +23,12 @@ function setUpEvents() {
         if(document.body.classList.contains('dark')) {
             sidenav.classList.add('sb-sidenav-dark');
             sidenav.classList.remove('sb-sidenav-light');
-            localStorage.setItem('dark-mode','true');
+            localStorage.setItem('modoOscuro','true');
         }
         else {
             sidenav.classList.add('sb-sidenav-light');
             sidenav.classList.remove('sb-sidenav-dark');
-            localStorage.setItem('dark-mode','false');
+            localStorage.setItem('modoOscuro','false');
         }
     });
     // Selección de día
@@ -95,7 +95,7 @@ function handleLayer(layer){
      layer.on({
          mouseover: highlightFeature,
          mouseout: resetHighlight,
-        // click: zoomToFeature
+         click: zoomToFeature
      });
  }
 

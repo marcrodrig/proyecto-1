@@ -1,3 +1,7 @@
+div.card-body {
+	text-align: center;
+}
+
 img {
 	float: left;
 }
@@ -56,10 +60,6 @@ h1, h5, table {
 	position: relative;
 }
 
-/* Para el calendario */
-.month-wrapper {
-	width: 202px;
-}
 .date-picker-wrapper {
 	z-index: 9999 !important; 
 }
