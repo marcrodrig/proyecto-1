@@ -80,3 +80,7 @@ h1, h5, table {
     display: flex;
 	align-items: center;
 }
+
+div.info {
+    text-align: left;
+}

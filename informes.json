@@ -4234,7 +4234,7 @@
             },
             {
                 "provincia": "Santiago del Estero",
-                "confirmados": "-1 (caso reclasificado por la jurisdicción)",
+                "confirmados": -1,
                 "acumulados": 9
             },
             {
