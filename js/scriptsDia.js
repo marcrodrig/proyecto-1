@@ -78,7 +78,9 @@ function mostrarMapaTablaBarras(diaMesAño) {
 }
 
 function getDatosByDia(dia) {
-    let obj = datos.find(item => item.dia === dia);
+    let obj = datos.filter(function(item) {
+        return item.dia === dia
+    })[0];
     return obj;
 }
 
