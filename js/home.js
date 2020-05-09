@@ -4,10 +4,9 @@ window.onload = function() {
 
 function setUpEvents() {
     // Switch
-    const btnSwitch = document.querySelector('#switch');
+    const btnSwitch = document.getElementById('chk');
     btnSwitch.addEventListener('click', function() {
         document.body.classList.toggle('dark');
-        btnSwitch.classList.toggle('active');
     
         var sidenav = document.getElementById('sidenavAccordion');
         if(document.body.classList.contains('dark')) {

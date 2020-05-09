@@ -53,12 +53,17 @@
 							</a>
 							<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
 								<nav class="sb-sidenav-menu-nested nav align-items-center">
-									Tema claro / Tema oscuro
-									<button class="switch active btn-secondary justify-content-center" id="switch">
-										<span><i class="fas fa-sun"></i></span>
-										<span><i class="fas fa-moon"></i></span>
-									</button>
+									<p>Tema claro / Tema oscuro</p> 
+									<div>
+                                        <input type="checkbox" class="checkbox" id="chk" />
+                                        <label class="label" for="chk">
+											<i class="fas fa-sun"></i>
+                                            <i class="fas fa-moon"></i>                                            
+                                            <div class="ball"></div>
+                                        </label>
+                                    </div>
 								</nav>
+								<script src="js/localStorageCheckbox.js"></script>
 							</div>
 							<div class="sb-sidenav-menu-heading">Servicios</div>
 							<a class="nav-link" href="consultasDia.html">
