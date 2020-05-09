@@ -1,0 +1,37 @@
+div.card-body {
+	text-align: center;
+}
+
+.navbar-brand {
+	color: #fff;
+	font-family: 'Graduate';
+	font-size: 22px;
+	display: flex;
+	align-items: center;
+}
+
+img {
+	float: left;
+}
+
+.jumbotron {
+	margin-top: 10px;
+}
+
+h1, h2, h4, h5, table, .card-title {
+	text-align: center;
+}
+
+.card-text {
+	text-align: justify;
+}
+
+.card {
+	height: 100%;
+	min-width: 200px;
+	margin-block-end: 10px;
+}
+
+#cardRangoInt {
+	min-width: 200px;
+}

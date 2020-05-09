@@ -1,18 +1,157 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/app.css">
-
-    <title>Proyecto 1</title>
-  </head>
-  <body>
-    <h1>Proyecto 1</h1>
-
-    <!-- JavaScript -->
-    <script src="js/app.js"></script>
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Proyecto 1</title>
+        <link rel="shortcut icon" type="image/png" href="img/mr-icon.png">
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+        <!-- Graduate (font) -->
+        <link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
+        <!-- CSS -->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/switchModo.css">
+        <link rel="stylesheet" href="css/modoOscuro.css">
+    </head>
+    <body class="sb-nav-fixed">    
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/mr-icon.png" width="45" height="45">
+                MR DATA
+            </a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                    <script src="js/localStorage.js"></script>
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">
+                                Home
+                            </div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon">
+                                    <img src="img/mr-icon.png" width="25" height="25">
+                                </div>
+                                COVID-19
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                                Pantalla
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse align-items-center" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">                            
+                                <nav class="sb-sidenav-menu-nested nav align-items-center">
+                                    <p>Tema oscuro / Tema claro</p>     
+                                    <div>
+                                        <input type="checkbox" class="checkbox" id="chk" />
+                                        <label class="label" for="chk">
+                                            <i class="fas fa-moon"></i> 
+                                            <i class="fas fa-sun"></i>                                           
+                                            <div class="ball"></div>
+                                        </label>
+                                    </div>
+                                </nav>
+                                <script src="js/localStorageCheckbox.js"></script>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Servicios</div>
+                                <a class="nav-link" href="consultasDia.html"
+                                    ><div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                                    Consulta por día
+                                </a>
+                                <a class="nav-link" href="consultasRango.html">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                                    Consulta por rango de días
+                                </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <div class="jumbotron">
+                            <h1>COVID-19 en Argentina</h1>
+                            <h2>Información de los casos confirmados y acumulados en el territorio Argentino.</h2>
+                            <h4>Fuente:</h4>
+                            <h5> Datos extraídos de los 
+                                <a href="https://www.argentina.gob.ar/coronavirus/informe-diario">informes diarios</a> del
+                                Ministerio de Salud de la Nación Argentina.</h5>
+                        </div>
+                        <h1 class="mt-4">Servicios</h1>                  
+                                <div class="card" id="cardDia">
+                                    <h5 class="card-header">Consulta por día</h5>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card bg-light">
+                                                    <div class="card-body" id="card1">
+                                                        <i class="fas fa-table fa-7x"></i>
+                                                        <h5 class="card-title">Tabla</h5>
+                                                        <p class="card-text">Tabla detallada con los casos confirmados y
+                                                            acumulados por provincia al día seleccionado.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="card bg-light">
+                                                    <div class="card-body">
+                                                        <i class="fas fa-globe-americas fa-7x"></i>
+                                                        <h5 class="card-title">Mapa coroplético</h5>
+                                                        <p class="card-text">Mapa coroplético en relación a la cantidad de
+                                                            casos acumulados por provincia, mostrando los casos confirmados
+                                                            por día seleccionado.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="card bg-light">
+                                                    <div class="card-body">
+                                                        <i class="fas fa-chart-bar fa-7x"></i>
+                                                        <h5 class="card-title">Gráficos de barras</h5>
+                                                        <p class="card-text">Gráficos de barras horizontal con la cantidad de
+                                                            casos confirmados y acumulados por provincia al día seleccionado.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a class="btn btn-dark" href="consultasDia.html" role="button">Ir a 'Consulta por día'</a>
+                                    </div>
+                                </div>                   
+                                <div class="card mt-4 mx-auto w-75" id="cardRango">
+                                    <h5 class="card-header">Consulta por rango de días</h5>
+                                    <div class="card-body">
+                                        <div class="card bg-light" id="cardRangoInt">
+                                            <div class="card-body">
+                                                <i class="fas fa-chart-line fa-7x"></i>
+                                                <h5 class="card-title">Gráficos de líneas</h5>
+                                                <p class="card-text text-center">Gráfico de líneas con la cantidad de casos confirmados
+                                                    y casos acumulados en un rango de días y provincia seleccionadas.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a class="btn btn-dark" href="consultasRango.html" role="button">Ir a 'Consulta por rango de días'</a>
+                                    </div>
+                                </div>
+                    </div>                
+                </main>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/home.js"></script>
+	</body>
 </html>

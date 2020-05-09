@@ -1,0 +1,45 @@
+div.card-body {
+	text-align: center;
+}
+
+img {
+	float: left;
+}
+
+h1, h2, h4, h5, table, .card-title {
+	text-align: center;
+}
+
+.fa-chart-line {
+	  float: left;
+}
+
+.card-text {
+	text-align: justify;
+}
+
+.chart-container {
+	height: 510px;
+	position: relative;
+}
+
+/* Para el calendario */
+.date-picker-wrapper {
+	z-index: 9999 !important; 
+}
+
+.input-group {
+	margin-top: 10px;
+}
+
+.modal {
+    color: #000;
+}
+
+.navbar-brand {
+	color: #fff;
+	font-family: 'Graduate';
+    font-size: 22px;
+    display: flex;
+	align-items: center;
+}

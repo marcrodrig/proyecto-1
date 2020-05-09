@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Proyecto 1</title>
+        <link rel="shortcut icon" type="image/png" href="img/mr-icon.png">
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+        <!-- Graduate (font) -->
+        <link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
+        <!-- ChartJS CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+        <!-- jQuery Date Range Picker CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.20.0/daterangepicker.css" integrity="sha256-lu0YNUWGC84eeyEDQCLf4y/P7ID9yVTdU4D71MJnjjw=" crossorigin="anonymous" />
+        <!-- CSS -->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/consultaDia.css">
+        <link rel="stylesheet" href="css/switchModo.css">
+        <link rel="stylesheet" href="css/modoOscuro.css">    
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous" />
+    </head>
+    <body class="sb-nav-fixed">        
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.html"><img src="img/mr-icon.png" width="45" height="45">MR DATA</a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                    <script src="js/localStorage.js"></script>
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Home</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon">
+                                    <img src="img/mr-icon.png" width="25" height="25">
+                                </div>
+                                COVID-19
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
+                                Pantalla
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav align-items-center">
+                                    <p>Tema oscuro / Tema claro</p>     
+                                    <div>
+                                        <input type="checkbox" class="checkbox" id="chk" />
+                                        <label class="label" for="chk">
+                                            <i class="fas fa-moon"></i> 
+                                            <i class="fas fa-sun"></i>                                              
+                                            <div class="ball"></div>
+                                        </label>
+                                    </div>
+                                </nav>
+                                <script src="js/localStorageCheckbox.js"></script>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Servicios</div>
+                            <a class="nav-link" href="consultasDia.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                                Consulta por día
+                            </a>
+                            <a class="nav-link" href="consultasRango.html"
+                                ><div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                                Consulta por rango de días
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Consulta por día</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Consulta por día</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                A continuación, usted puede seleccionar o modificar un día, y visualizar la evolución de la pandemia mediante distintos gráficos.
+                                <div class="input-group" id="inputDia">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-secondary" id="btnCalendario">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <input class="form-control" name="dia" id="dia" placeholder="Seleccione un día" readonly="true" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="collapseMapaTablaBarras"> 
+                            <div class="card mb-4">
+                                <div class="card-header"><h5><i class="fas fa-globe-americas mr-1"></i>Mapa coroplético</h5></div>
+                                <div class="card-body">
+                                    <div id="map">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card mb-4">
+                                        <div class="card-header"><h5><i class="fas fa-chart-bar mr-1"></i>Gráfico de barras</h5></div>
+                                        <div class="card-body">
+                                            <div class="chart-container1">
+                                                <canvas id="chart1" width="100%" height="50"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card mb-4">
+                                        <div class="card-header"><h5><i class="fas fa-chart-bar mr-1"></i>Gráfico de barras</h5></div>
+                                        <div class="card-body">
+                                            <div class="chart-container2">
+                                                <canvas id="chart2"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-4 mt-4">
+                                <div class="card-header"><h5><i class="fas fa-table mr-1"></i>Tabla</h5></div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                <th>Provincia</th>
+                                                <th>Confirmados</th>
+                                                <th>Acumulados</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="resultadoTabla">
+                        
+                                            </tbody>
+                                        </table>              
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <!-- Moment JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+        <!-- jQuery JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <!-- jQuery Date Range Picker JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.20.0/jquery.daterangepicker.min.js" integrity="sha256-qQx2CIbSRccEP6dedJGT0WHKhX0WhZi8crKw6TzfUeI=" crossorigin="anonymous"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- Leaflet JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js" integrity="sha256-fNoRrwkP2GuYPbNSJmMJOCyfRB2DhPQe0rGTgzRsyso=" crossorigin="anonymous"></script>
+        <!-- ChartJS JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>  
+        <!-- Leaflet Providers JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.9.1/leaflet-providers.js" integrity="sha256-rvLhwzAFnv7VYTR6DaKTU8FyC2bmnFIGp1/T8TTyLW4=" crossorigin="anonymous"></script>
+        <!-- TopoJSON para utilizar con Leaflet -->
+        <script src="https://d3js.org/topojson.v1.min.js"></script>
+        <!-- JavaScript -->
+        <script src="js/datePickerDia.js"></script>
+        <script src="js/mapa.js"></script>
+        <script src="js/barChart.js"></script>
+        <script src="js/scriptsDia.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
